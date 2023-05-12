@@ -1,0 +1,11 @@
+---
+key: "PizzaShackAPI-1.0.0"
+name : "PizzaShackAPI"
+displayName : "PizzaShackAPI"
+description: "Sample API"
+version: "1.0.0"
+serviceUrl: "https://{MI_HOST}:{MI_PORT}/default"
+definitionType: "OAS3"
+securityType: "BASIC"
+mutualSSLEnabled: false
+apiId : "9253ce4c-94e4-4a4b-87e0-742b40ac1965"

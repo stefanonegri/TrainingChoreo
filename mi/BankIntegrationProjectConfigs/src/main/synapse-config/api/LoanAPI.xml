@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/loans" name="LoanAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/types">
+        <inSequence>
+            <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
+            <call>
+                <endpoint>
+                    <address uri="http://localhost:9093/loans/types">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>-1</progressionFactor>
+                            <maximumDuration>0</maximumDuration>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </address>
+                </endpoint>
+            </call>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" uri-template="/register">
+        <inSequence>
+            <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
+            <call>
+                <endpoint>
+                    <address uri="http://localhost:9093/loans/register">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>-1</progressionFactor>
+                            <maximumDuration>0</maximumDuration>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </address>
+                </endpoint>
+            </call>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="GET" uri-template="/{loan_id}">
+        <inSequence>
+            <call>
+                <endpoint>
+                    <http method="get" uri-template="http://localhost:9093/loans/{uri.var.loan_id}">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>1</progressionFactor>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <datamapper config="gov:datamapper/DMLoanConfig.dmc" inputSchema="gov:datamapper/DMLoanConfig_inputSchema.json" inputType="XML" outputSchema="gov:datamapper/DMLoanConfig_outputSchema.json" outputType="JSON" xsltStyleSheet="gov:datamapper/DMLoanConfig_xsltStyleSheet.xml"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+    <resource methods="POST" uri-template="/approve/{loan_id}">
+        <inSequence>
+            <call>
+                <endpoint>
+                    <http method="post" uri-template="http://localhost:9093/loans/approve/{uri.var.loan_id}">
+                        <suspendOnFailure>
+                            <initialDuration>-1</initialDuration>
+                            <progressionFactor>-1</progressionFactor>
+                            <maximumDuration>0</maximumDuration>
+                        </suspendOnFailure>
+                        <markForSuspension>
+                            <retriesBeforeSuspension>0</retriesBeforeSuspension>
+                        </markForSuspension>
+                    </http>
+                </endpoint>
+            </call>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <respond/>
+        </inSequence>
+        <outSequence/>
+        <faultSequence/>
+    </resource>
+</api>
